@@ -1,25 +1,66 @@
-.carousel-inner {
-    width: 1920px;
-    height: auto;
-    margin: 0px auto 0;
-    overflow: hidden;
-}
-
-.carousel-inner img {
-    width: 100%;
-}
-
-.row {
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    gap: 20px;
-    padding: 20px;
-}
-
-.card {
-    background-color: #f1f1f1;
-    border: 2px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-}
+/* GENERAL STYLES */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+  }
+  
+  /* LOGO IMAGE */
+  .logo {
+    margin-right: 10px;
+  }
+  
+  /* SECTION HEADINGS */
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* CARD IMAGE */
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  /* CARD TEXTS */
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  /* BUTTON CUSTOMIZATION */
+  .btn-outline-success {
+    border-color: #198754;
+    color: #198754;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #198754;
+    color: #fff;
+  }
+  
+  /* NAVIGATION BAR */
+  .navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* CAROUSEL IMAGES */
+  .carousel-item img {
+    height: 500px;
+    object-fit: cover;
+  }
+  
+  /* SPACING */
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
