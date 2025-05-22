@@ -45,76 +45,64 @@
     </form>
   </div>
 
-<script>
-  const user = JSON.parse(localStorage.getItem("user"));
-  const isAdmin = user && user.role === "admin";
+  <!-- Load default news data -->
+  <script src="newsData.js"></script>
 
-  const newsContainer = document.getElementById("news-list");
-  const adminControls = document.getElementById("admin-controls");
-  const form = document.getElementById("news-form");
+  <!-- Main Logic -->
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    const isAdmin = user && user.role === "admin";
 
-  let news = JSON.parse(localStorage.getItem("news"));
+    const newsContainer = document.getElementById("news-list");
+    const adminControls = document.getElementById("admin-controls");
+    const form = document.getElementById("news-form");
 
-  if (!news || !Array.isArray(news) || news.length === 0) {
-    news = [
-      {
-        title: "GTA VI será lanzado en 2025",
-        content: "Rockstar Games confirmó oficialmente el lanzamiento de Grand Theft Auto VI.",
-        image: "images/gta6.jpg"
-      },
-      {
-        title: "Spider-Man 2 rompe récords",
-        content: "Más de 5 millones de copias en la primera semana.",
-        image: "images/spidy.jpg"
-      },
-      {
-        title: "Nuevo avance de God of War",
-        content: "Sony muestra nuevo contenido de God of War en el State of Play.",
-        image: "images/godofwar.png"
-      }
-    ];
-    localStorage.setItem("news", JSON.stringify(news));
-  }
+    let news = JSON.parse(localStorage.getItem("news"));
 
-  function renderNews() {
-    newsContainer.innerHTML = "";
-    news.forEach((item, index) => {
-      const card = document.createElement("div");
-      card.className = "news-card";
-      card.innerHTML = `
-        <h4>${item.title}</h4>
-        ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
-        <p>${item.content}</p>
-        ${isAdmin ? `<button class="btn btn-sm btn-danger mt-2" onclick="deleteNews(${index})">Eliminar</button>` : ""}
-      `;
-      newsContainer.appendChild(card);
+    if (!news || !Array.isArray(news) || news.length === 0) {
+      news = defaultNews;
+      localStorage.setItem("news", JSON.stringify(news));
+    }
+
+    function renderNews() {
+      newsContainer.innerHTML = "";
+      news.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "news-card";
+        card.innerHTML = `
+          <h4>${item.title}</h4>
+          ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
+          <p>${item.content}</p>
+          ${isAdmin ? `<button class="btn btn-sm btn-danger mt-2" onclick="deleteNews(${index})">Eliminar</button>` : ""}
+        `;
+        newsContainer.appendChild(card);
+      });
+    }
+
+    function deleteNews(index) {
+      news.splice(index, 1);
+      localStorage.setItem("news", JSON.stringify(news));
+      renderNews();
+    }
+
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+      const image = document.getElementById("image").value;
+
+      news.push({ title, content, image });
+      localStorage.setItem("news", JSON.stringify(news));
+      form.reset();
+      renderNews();
     });
-  }
 
-  function deleteNews(index) {
-    news.splice(index, 1);
-    localStorage.setItem("news", JSON.stringify(news));
+    if (isAdmin) {
+      adminControls.classList.remove("d-none");
+    }
+
     renderNews();
-  }
-
-  form?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const title = document.getElementById("title").value;
-    const content = document.getElementById("content").value;
-    const image = document.getElementById("image").value;
-
-    news.push({ title, content, image });
-    localStorage.setItem("news", JSON.stringify(news));
-    form.reset();
-    renderNews();
-  });
-
-  if (isAdmin) {
-    adminControls.classList.remove("d-none");
-  }
-
-  renderNews();
-</script>
+  </script>
 
 </body>
 </html>
